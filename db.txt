@@ -1,0 +1,146 @@
+CREATE DATABASE floodwatch;
+
+USE floodwatch;
+
+CREATE TABLE admin_users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fullname VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE weather_data (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  location VARCHAR(100),
+  rainfall_mm DECIMAL(5,2),
+  temperature DECIMAL(5,2),
+  humidity INT,
+  recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE flood_events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  location VARCHAR(100),
+  rainfall_mm DECIMAL(5,2),
+  river_level DECIMAL(5,2),
+  flood_occurred BOOLEAN,
+  severity VARCHAR(20),
+  event_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE alerts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  location VARCHAR(100),
+  risk_level VARCHAR(20),
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE flood_reports (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_name VARCHAR(100),
+  location VARCHAR(100),
+  description TEXT,
+  severity VARCHAR(20),
+  status VARCHAR(20) DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE stations (
+    station_id INT AUTO_INCREMENT PRIMARY KEY,
+    station_name VARCHAR(255),
+    location VARCHAR(255),
+    latitude VARCHAR(100),
+    longitude VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE resources (
+    resource_id INT AUTO_INCREMENT PRIMARY KEY,
+    station_id INT,
+    resource_name VARCHAR(255),
+    quantity INT DEFAULT 0,
+    dispatched INT DEFAULT 0,
+    returned_quantity INT DEFAULT 0,
+    status VARCHAR(100) DEFAULT 'Available',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (station_id) REFERENCES stations(station_id)
+);
+
+CREATE TABLE routes (
+    route_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    area_name VARCHAR(255) NOT NULL,
+
+    primary_route VARCHAR(255) NOT NULL,
+
+    alternative_route VARCHAR(255) NOT NULL,
+
+    flood_status VARCHAR(100) DEFAULT 'Safe',
+
+    risk_level VARCHAR(100) DEFAULT 'Low',
+
+    estimated_time INT DEFAULT 0,
+
+    connected_station INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (connected_station)
+    REFERENCES stations(station_id)
+);
+
+INSERT INTO routes
+(area_name, primary_route, alternative_route)
+VALUES
+
+('CBD', 'Uhuru Highway', 'Haile Selassie Avenue'),
+
+('Westlands', 'Waiyaki Way', 'Westlands Road'),
+
+('Upper Hill', 'Ngong Road', 'Kenyatta Avenue'),
+
+('Kilimani', 'Ngong Road', 'Argwings Kodhek Road'),
+
+('Kibera', 'Langata Road', 'Mbagathi Way'),
+
+('Langata', 'Langata Road', 'Southern Bypass'),
+
+('Karen', 'Karen Road', 'Ngong Road'),
+
+('Dagoretti', 'Naivasha Road', 'Waiyaki Way'),
+
+('Kasarani', 'Thika Road', 'Outer Ring Road'),
+
+('Roysambu', 'Thika Road', 'TRM Drive'),
+
+('Githurai', 'Thika Superhighway', 'Kahawa West Road'),
+
+('Embakasi', 'Airport North Road', 'Outer Ring Road'),
+
+('Donholm', 'Jogoo Road', 'Outer Ring Road'),
+
+('Eastleigh', 'General Waruinge Street', 'Juja Road'),
+
+('Industrial Area', 'Enterprise Road', 'Likoni Road'),
+
+('Ruai', 'Kangundo Road', 'Eastern Bypass'),
+
+('Umoja', 'Jogoo Road', 'Manyanja Road'),
+
+('Pipeline', 'Outering Road', 'Airport North Road');
+
+CREATE TABLE validators (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100),
+  id_number VARCHAR(50),
+  email VARCHAR(100),
+  password VARCHAR(255),
+  id_proof VARCHAR(255),
+  status VARCHAR(20) DEFAULT 'pending', -- pending | active | rejected
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE validator_sessions (
+  session_id INT AUTO_INCREMENT PRIMARY KEY,
+  validator_id INT,
+  is_active BOOLEAN DEFAULT 1,
+  last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
