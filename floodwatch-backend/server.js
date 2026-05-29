@@ -569,7 +569,69 @@ app.get("/api/validators/sessions/:id", (req, res) => {
   });
 });
 
+/* ===================================================
+   Get latest weather
+=================================================== */ 
+/* ===================================================
+   WEATHER APIs
+=================================================== */
 
+// LATEST WEATHER
+app.get("/api/weather/latest/:location", (req, res) => {
+
+  const { location } = req.params;
+
+  const sql = `
+    SELECT *
+    FROM weather_data
+    WHERE location = ?
+    ORDER BY recorded_at DESC
+    LIMIT 1
+  `;
+
+  db.query(sql, [location], (err, result) => {
+
+    if (err) {
+      return res.status(500).json({
+        success: false,
+      });
+    }
+
+    res.json(result[0]);
+
+  });
+
+});
+
+// HOURLY WEATHER (LAST 12 HOURS)
+app.get("/api/weather/hourly", (req, res) => {
+
+  const sql = `
+    SELECT
+      DATE_FORMAT(recorded_at, '%H:00') AS time,
+      AVG(rainfall_mm) AS rainfall_mm,
+      AVG(temperature) AS temperature,
+      AVG(humidity) AS humidity
+    FROM weather_data
+    WHERE recorded_at >= NOW() - INTERVAL 12 HOUR
+    GROUP BY HOUR(recorded_at)
+    ORDER BY recorded_at ASC
+  `;
+
+  db.query(sql, (err, result) => {
+
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to fetch hourly weather",
+      });
+    }
+
+    res.json(result);
+
+  });
+
+});
 /* ===================================================
    WEATHER COLLECTOR
 =================================================== */

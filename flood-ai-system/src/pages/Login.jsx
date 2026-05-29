@@ -75,12 +75,14 @@ export default function Login() {
           </Typography>
         )}
 
+        {/*
         <Typography textAlign="center" sx={{ mt: 2 }}>
           Don’t have an account?{" "}
           <Link to="/register" style={{ color: "#1e88e5" }}>
             Register
           </Link>
         </Typography>
+        */}
       </Card>
     </Box>
   );

@@ -86,7 +86,9 @@ const getWeatherIcon = (condition) => {
             <Button startIcon={<SupportAgentIcon />} sx={{ color: "#1e88e5" }}>
               Services
             </Button>
-
+<Button component={Link} to="/routes-monitor" startIcon={<WarningIcon />} sx={{ color: "#1e88e5" }}>
+  Routes Monitor
+</Button>
             <Button startIcon={<WarningIcon />} sx={{ color: "#1e88e5" }}>
               Alerts
             </Button>

@@ -12,6 +12,7 @@ import ValidatorLogin from "./pages/validators/ValidatorLogin";
 import ValidatorRegister from "./pages/validators/ValidatorRegister";
 import ValidatorDashboard from "./pages/validators/ValidatorDashboard";
 import RoutesMonitor from "./pages/RoutesMonitor";
+import LiveWeatherDisplay from "./pages/LiveWeatherDisplay";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/validator/register" element={<ValidatorRegister />} />
         <Route path="/validator/dashboard" element={<ValidatorDashboard />} />
         <Route path="/routes-monitor" element={<RoutesMonitor />} />
+        <Route path="/live-weather" element={<LiveWeatherDisplay />} />
       </Routes>
     </BrowserRouter>
   );

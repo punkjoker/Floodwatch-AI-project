@@ -18,6 +18,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import ChatIcon from "@mui/icons-material/Chat";
+import CloudIcon from "@mui/icons-material/Cloud";
 
 const drawerWidth = 240;
 
@@ -27,9 +28,10 @@ export default function Navbar() {
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
     { text: "Alerts", icon: <WarningIcon />, path: "/alerts" },
+    { text: "Liveweather", icon: <CloudIcon />, path: "/live-weather" },
     { text: "Routes", icon: <RouteIcon />, path: "/routes" },
     { text: "Resources", icon: <InventoryIcon />, path: "/resources" },
-    { text: "Teams", icon: <LocalShippingIcon />, path: "/teams" },
+    { text: "Dispatch Teams", icon: <LocalShippingIcon />, path: "/teams" },
     { text: "Validators", icon: <VerifiedUserIcon />, path: "/validators" },
     { text: "Chat", icon: <ChatIcon />, path: "/chat" },
   ];

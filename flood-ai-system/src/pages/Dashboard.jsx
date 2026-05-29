@@ -53,7 +53,8 @@ export default function Dashboard() {
     { text: "Alerts", icon: <WarningIcon /> },
     { text: "Routes", icon: <RouteIcon /> , path: "/routes" },
     { text: "Resources", icon: <InventoryIcon />, path: "/resources" },
-    { text: "Teams", icon: <LocalShippingIcon /> },
+    
+    { text: "Dispatch Teams", icon: <LocalShippingIcon /> },
     { text: "Validators", icon: <VerifiedUserIcon />, path: "/validators"},
     { text: "Chat", icon: <ChatIcon /> },
   ];
